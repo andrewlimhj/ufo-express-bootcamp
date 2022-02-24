@@ -211,4 +211,4 @@ app.get('/favorites/:index', (request, response) => {
 });
 
 // listen to port
-app.listen(3004);
+app.listen(80);

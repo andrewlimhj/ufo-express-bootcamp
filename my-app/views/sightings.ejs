@@ -1,0 +1,57 @@
+<%- include('header', {title: 'UFO Sightings List'}) %> 
+
+    <div class="d-flex justify-content-center p-3">
+  <h1>Sightings</h1>
+    </div>
+
+<div class="d-flex justify-content-end p-3">
+  <div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+    Sort By
+  </button>
+  <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+     <% queries.forEach((query) => { %> <% const link =
+                `/?sortBy=${query}` %>
+                <li>
+                  <a class="dropdown-item" href="<%= link %>"> <%= query %> </a>
+                  <% }); %>
+                </li>
+  </ul>
+</div>
+  </div>
+
+
+  <div class="container-fluid">
+    <h4 class="h5 p-2">Sort By <%= sortBy %></h4>
+    </div>
+  
+   
+<div class="container-fluid">
+<div class="row">
+    <% for(let i = 0 ; i < sightings.length; i += 1) { %>
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+
+  <% const sightingIndex = sightings[i].index%>
+         <% const link = `/sighting/${sightingIndex}` %> <% const index = i %>
+        <h5 class="card-title"><a href="<%= link %>"> Sightings <%= sightingIndex %> </a></h5>
+
+            <form action="/sighting/<%= index %>?_method=DELETE" method="POST">
+          <input class="btn btn-danger" type="submit" value="Delete" />
+   
+          <a href="/sighting/<%=sightingIndex%>/edit" class="btn btn-primary" tabindex="-1" role="button">Edit</a>
+
+          <a href="/favorites/<%= sightingIndex %>" class="btn btn-warning" role="button">Fav</a>
+      </div>
+    </div>
+  </div>
+    <% } %>
+</div>
+  </div>
+  
+    <div class="d-flex container-fluid p-3 justify-content-end">
+    <h5>Visits: <%= visits %></h5>
+    </div>
+
+  <%- include('footer'); -%>

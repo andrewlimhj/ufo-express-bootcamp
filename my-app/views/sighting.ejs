@@ -1,0 +1,42 @@
+<%- include('header', {title: 'Sighting Report'}) %>
+
+<div class="container">
+  <div class="d-flex justify-content-center p-3">
+    <h1>UFO Sighting</h1>
+  </div>
+
+  <div class="container-fluid">
+    <dl class="row">
+      <dt class="col-sm-3">Date & Time</dt>
+      <dd class="col-sm-9"><%= date_time %></dd>
+
+      <dt class="col-sm-3">City</dt>
+      <dd class="col-sm-9"><%= city %></dd>
+
+      <dt class="col-sm-3">State</dt>
+      <dd class="col-sm-9"><%= state %></dd>
+
+      <dt class="col-sm-3">Shape</dt>
+      <dd class="col-sm-9"><%= shape %></dd>
+
+      <dt class="col-sm-3">Duration</dt>
+      <dd class="col-sm-9"><%= duration %></dd>
+
+      <dt class="col-sm-3">Summary</dt>
+      <dd class="col-sm-9">
+        <p><%= summary %></p>
+      </dd>
+
+      <% if (timestamp !== "") { %>
+      <dt class="col-sm-3">Time Posted</dt>
+      <dd class="col-sm-9"><%= timestamp %></dd>
+      <% } %>
+    </dl>
+
+    <a href="/" class="btn btn-primary" tabindex="-1" role="button"
+      >Back To Homepage</a
+    >
+  </div>
+</div>
+
+<%- include('footer'); -%>

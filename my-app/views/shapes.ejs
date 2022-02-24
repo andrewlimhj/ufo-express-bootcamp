@@ -1,0 +1,26 @@
+<%- include('header', {title: 'UFO Shapes List'}) %>
+
+<div class="d-flex justify-content-center p-3">
+  <h1>UFO Shapes</h1>
+</div>
+
+<div class="container-fluid">
+  <div class="row">
+    <% for( let i = 0; i < shapes.length; i++ ) { %>
+
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body">
+          <% const shape = shapes[i] %> <% const link = `/shapes/${shape}` %>
+
+          <h5 class="card-title">
+            <a href="<%= link %> "> <%= shape %> </a>
+          </h5>
+        </div>
+      </div>
+    </div>
+    <% } %>
+  </div>
+</div>
+
+<%- include('footer'); -%>

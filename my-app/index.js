@@ -243,12 +243,15 @@ app.get('/favorites/:index', (request, response) => {
 });
 
 app.get('/favorites', (request, response) => {
-  const cookieArray = [request.cookies.favorites];
+  if (!(request.cookies.favorites)) {
+    response.send('Error, please add a favorite first.');
+  } else {
+    const cookieArray = [request.cookies.favorites];
+    const favArray = JSON.parse(cookieArray);
+    console.log(cookieArray);
 
-  const favArray = JSON.parse(cookieArray);
-  console.log(cookieArray);
-
-  response.render('favorites', { favArray });
+    response.render('favorites', { favArray });
+  }
 });
 
 // listen to port

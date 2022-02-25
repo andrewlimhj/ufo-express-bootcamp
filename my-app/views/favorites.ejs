@@ -1,0 +1,32 @@
+<%- include('header', {title: 'Favorites List'}) %>
+
+<div class="container">
+  <div class="d-flex justify-content-center p-3">
+    <h1>Favorite Sightings</h1>
+  </div>
+
+  <div class="container fluid">
+    <div class="row">
+      <% favArray.forEach(index => { %>
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">
+              <% const link = `/sighting/${index}` %>
+              <a href="<%= link %> ">Sighting <%= index%> </a>
+            </h5>
+          </div>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+
+  <div class="container-fluid p-3">
+    <a href="/" class="btn btn-primary" tabindex="-1" role="button"
+      >Back To Homepage</a
+    >
+  </div>
+</div>
+
+<%- include('footer'); -%>

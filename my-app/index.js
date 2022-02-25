@@ -194,20 +194,61 @@ app.get('/shapes/:shape', getShape);
 
 // Get favorites
 app.get('/favorites/:index', (request, response) => {
-  // get the index where cookie is going to be set
-  const favIndex = request.params.index; // eg. 3
-  // check the current req.cookies.favIndex is empty or no, then set cookie as yes
-  if (!request.cookies[favIndex] || request.cookies[favIndex] === 'no') {
-    response.cookie(favIndex, 'yes'); // eg {'3':yes}
-  }
-  // vice versa
-  if (request.cookies[favIndex] === 'yes') {
-    response.cookie(favIndex, 'no'); // eg {'3':no}
+  const { index } = request.params;
+  let favArray = [];
+
+  // const favKeys = Object.keys(request.cookies);
+
+  // favKeys.filter((key) => Number.isNaN(parseFloat(key)));
+  // console.log(favKeys);
+
+  // console.log(request.cookies.favorites);
+
+  if (!(request.cookies.favorites)) {
+    favArray = [index];
+    response.cookie('favorites', JSON.stringify(favArray));
+    console.log('this running');
+    response.render('favorites', { favArray });
+  } else {
+    // add additional index
+    const favIndex = request.cookies.favorites;
+    const newFavIndex = JSON.parse(favIndex);
+
+    favArray = [...newFavIndex, index];
+
+    favArray = favArray.filter((value, i) => favArray.indexOf(value) === i);
+
+    const newFavArray = JSON.stringify(favArray);
+
+    console.log(newFavArray);
+
+    response.cookie('favorites', newFavArray);
+    response.render('favorites', { favArray });
   }
 
-  // send response so cookie will be set
-  response.sendStatus(200);
-  // console.log (req.cookies);
+  // // get the index where cookie is going to be set
+  // const favIndex = request.params.index; // eg. 3
+  // // check the current req.cookies.favIndex is empty or no, then set cookie as yes
+  // if (!request.cookies[favIndex] || request.cookies[favIndex] === 'no') {
+  //   response.cookie(favIndex, 'yes'); // eg {'3':yes}
+  // }
+  // // vice versa
+  // if (request.cookies[favIndex] === 'yes') {
+  //   response.cookie(favIndex, 'no'); // eg {'3':no}
+  // }
+
+  // // send response so cookie will be set
+
+  // // console.log (req.cookies);
+});
+
+app.get('/favorites', (request, response) => {
+  const cookieArray = [request.cookies.favorites];
+
+  const favArray = JSON.parse(cookieArray);
+  console.log(cookieArray);
+
+  response.render('favorites', { favArray });
 });
 
 // listen to port
